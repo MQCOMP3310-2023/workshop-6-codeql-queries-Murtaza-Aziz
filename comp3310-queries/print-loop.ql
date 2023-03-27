@@ -5,12 +5,12 @@
  * @id java/example/print-loop
  */
 
-import java
 
-from LoopStmt loop,  MethodAccess call, Method method
-where
-  loop.getAChild*() = call.getEnclosingStmt() and  //works now
-  call.getMethod() = method and
-  method.hasName("println") and
-  method.getDeclaringType().hasQualifiedName("java.io",  "PrintStream")
-select call, "This prints to console in a loop."
+
+import java 
+from MethodAccess call, Method method, string packageName, string typeName
+where 
+call.getMethod() = method and
+method.hasName("nextLine") and 
+method.getDeclaringType().hasQualifiedName(packageName, typeName) 
+select call, packageName+","+typeName
