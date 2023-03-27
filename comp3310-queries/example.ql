@@ -7,6 +7,9 @@
 
 import java
 
-from BlockStmt b
-where b.getNumStmt() = 0
-select b, "This is an empty block."
+from MethodAccess call, Method method, string packageName, string typeName
+where 
+call.getMethod() = method and
+method.hasName("nextLine") and 
+method.getDeclaringType().hasQualifiedName(packageName, typeName) 
+select call, packageName+","+typeName
